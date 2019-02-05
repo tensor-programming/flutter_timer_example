@@ -31,7 +31,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 15),
+      duration: Duration(seconds: 10),
     );
   }
 
@@ -55,7 +55,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
                         child: AnimatedBuilder(
                           animation: controller,
                           builder: (BuildContext context, Widget child) {
-                            return new CustomPaint(
+                            return CustomPaint(
                                 painter: TimerPainter(
                               animation: controller,
                               backgroundColor: Colors.white,
@@ -77,7 +77,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
                             AnimatedBuilder(
                                 animation: controller,
                                 builder: (BuildContext context, Widget child) {
-                                  return new Text(
+                                  return Text(
                                     timerString,
                                     style: themeData.textTheme.display4,
                                   );
@@ -99,7 +99,7 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
                     child: AnimatedBuilder(
                       animation: controller,
                       builder: (BuildContext context, Widget child) {
-                        return new Icon(controller.isAnimating
+                        return Icon(controller.isAnimating
                             ? Icons.pause
                             : Icons.play_arrow);
                       },
@@ -145,8 +145,8 @@ class TimerPainter extends CustomPainter {
 
     canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
     paint.color = color;
-    double progress = (1.0 - animation.value) * 2 * math.PI;
-    canvas.drawArc(Offset.zero & size, math.PI * 1.5, -progress, false, paint);
+    double progress = (1.0 - animation.value) * 2 * math.pi;
+    canvas.drawArc(Offset.zero & size, math.pi * 1.5, -progress, false, paint);
   }
 
   @override
