@@ -21,6 +21,8 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with TickerProviderStateMixin {
   AnimationController controller;
 
+  // bool isPlaying = false;
+
   String get timerString {
     Duration duration = controller.duration * controller.value;
     return '${duration.inMinutes}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -33,6 +35,14 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
       vsync: this,
       duration: Duration(seconds: 10),
     );
+
+    // ..addStatusListener((status) {
+    //     if (controller.status == AnimationStatus.dismissed) {
+    //       setState(() => isPlaying = false);
+    //     }
+
+    //     print(status);
+    //   })
   }
 
   @override
@@ -102,12 +112,18 @@ class MyAppState extends State<MyApp> with TickerProviderStateMixin {
                         return Icon(controller.isAnimating
                             ? Icons.pause
                             : Icons.play_arrow);
+
+                        // Icon(isPlaying
+                        // ? Icons.pause
+                        // : Icons.play_arrow);
                       },
                     ),
                     onPressed: () {
-                      if (controller.isAnimating)
-                        controller.stop();
-                      else {
+                      // setState(() => isPlaying = !isPlaying);
+
+                      if (controller.isAnimating) {
+                        controller.stop(canceled: true);
+                      } else {
                         controller.reverse(
                             from: controller.value == 0.0
                                 ? 1.0
